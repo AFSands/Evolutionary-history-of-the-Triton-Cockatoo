@@ -21,4 +21,4 @@ These scripts and support file examples have been categorised and labelled in th
 For the most part, the scripts are shown with pathways, input file names and output names exactly how they were run on the high-performance computer Puhti (CSC, Finalnd) or on the authors' personal computers. Where the same script was repeated multiple times for different samples, the scripts have been given in a generic format where pathways, input file names and output names require specification. Notes have been given at the top of each script (where required) to provide basic instructions or further information.
 
 ################## Data files & raw results ################### 
-Basic starting VCF files and raw/preliminary results can be found on the Dryad Digital Repository (https://doi.org/10.5061/dryad.vt4b8gv6d).
+Basic starting files and raw/preliminary results can be found on the Dryad Digital Repository (https://doi.org/10.5061/dryad.vt4b8gv6d).
