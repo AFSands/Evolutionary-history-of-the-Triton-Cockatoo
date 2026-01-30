@@ -1,0 +1,28 @@
+#####################################
+# NOTES: This script is run in the directory where the reference genome is placed. Occasionally, "*.fast" may be written as "*.fna".
+#####################################
+
+#!/bin/bash
+#SBATCH --job-name=IndexRef
+#SBATCH --account=Project_2006079
+#SBATCH --time=03:00:00
+#SBATCH --mem-per-cpu=2G
+#SBATCH --partition=small
+#SBATCH --mail-type=END
+#SBATCH --output=%j.out
+#SBATCH --error=%j.err
+
+module load biokit
+
+#change permissions
+chmod -R 777 *
+
+#Create a sequence dictionary file from a fasta file.
+samtools dict <reference_genome_name>.fasta > <reference_genome_name>.fasta.dict
+
+#index reference genome
+samtools faidx <reference_genome_name>.fasta
+bwa index -p <reference_genome_name>.fasta <reference_genome_name>.fasta
+
+#change permissions
+chmod -R 777 *
