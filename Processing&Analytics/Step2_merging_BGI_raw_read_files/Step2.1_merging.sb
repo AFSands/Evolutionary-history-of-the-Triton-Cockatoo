@@ -1,0 +1,56 @@
+#################################################
+# NOTES: This script is run from the directory containing the raw BGI DNBseq reads of each specimen. It is run multiple times for each specimen. The script has been generalised - the output path requires defining. 
+#################################################
+
+
+#!/bin/bash -l
+#SBATCH --job-name=fqMerge
+#SBATCH --output=array_job_out_%A_%a.txt
+#SBATCH --error=array_job_err_%A_%a.txt
+#SBATCH --account=project_2006079
+#SBATCH --partition=small
+#SBATCH --time=24:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=6
+#SBATCH --mem-per-cpu=28G
+
+# Get the current directory name
+dir_name=$(basename "$PWD")
+
+# Define the output files
+output_1="${dir_name}_1.fastq"
+output_2="${dir_name}_2.fastq"
+
+# Initialize empty output files (if not present)
+> "$output_1"
+> "$output_2"
+
+# Merge all _1.fq.gz files
+for file in *_1.fq.gz; do
+    if [[ -e "$file" ]]; then
+        echo "Processing $file"
+        gunzip -c "$file" >> "$output_1"
+    else
+        echo "No _1.fq.gz files found."
+    fi
+done
+
+# Merge all _2.fq.gz files
+for file in *_2.fq.gz; do
+    if [[ -e "$file" ]]; then
+        echo "Processing $file"
+        gunzip -c "$file" >> "$output_2"
+    else
+        echo "No _2.fq.gz files found."
+    fi
+done
+
+# Provide feedback about the merging process
+echo "Merging completed. Output files: $output_1, $output_2"
+
+# Compress the merged files
+gzip -c "$output_1" > "<path_to_output>/${dir_name}_1.fastq.gz"
+gzip -c "$output_2" > "<path_to_output>/${dir_name}_2.fastq.gz"
+
+# Clean up uncompressed files if necessary
+rm "$output_1" "$output_2"
