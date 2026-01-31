@@ -1,0 +1,56 @@
+#################################################
+# NOTES: This script is run as an array script. It requires a support file "namelistBGI" which contains a list of specimen names.
+#################################################
+
+#!/bin/bash -l
+#SBATCH --job-name=merge
+#SBATCH --output=array_job_out_%A_%a.txt
+#SBATCH --error=array_job_err_%A_%a.txt
+#SBATCH --account=project_2006079
+#SBATCH --partition=small
+#SBATCH --time=24:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem-per-cpu=64G
+#SBATCH --array=1-21
+
+#set the input file to process
+name=$(sed -n ${SLURM_ARRAY_TASK_ID}p namelistBGI)
+
+
+module load biokit
+
+samtools merge /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged.bam /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step4_preliminary_bams_mitoG/${name}_PE.bam /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step4_preliminary_bams_mitoG/${name}_ME.bam
+
+samtools sort -m 64G -o /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort.bam /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged.bam
+
+samtools index /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort.bam
+
+picard64 AddOrReplaceReadGroups I=/scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort.bam O=/scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG.bam SM=${name} LB=KAPA PL=DNBseq PU=DNBseq CN=BGI VALIDATION_STRINGENCY=SILENT
+
+samtools sort -m 64G -o /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort.bam /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG.bam
+
+samtools index /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort.bam
+
+picard64 MarkDuplicates I=/scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort.bam O=/scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort_Mkdup.bam AS=TRUE M=/scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort.metrics REMOVE_DUPLICATES=FALSE VALIDATION_STRINGENCY=LENIENT
+
+samtools sort -m 64G -o /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort_Mkdup_finalsort.bam /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort_Mkdup.bam
+
+samtools index /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort_Mkdup_finalsort.bam
+
+samtools flagstat /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort_Mkdup_finalsort.bam > /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort_Mkdup_finalsort.bam.flagstat
+
+samtools depth /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort_Mkdup_finalsort.bam | awk '{sum+=$3; sumsq+=$3*$3} END { print "Average = ",sum/NR; print "Stdev = ",sqrt(sumsq/NR - (sum/NR)**2)}' > /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/coverage_${name}.txt
+
+
+# Change permissions
+chmod 777 /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_*
+
+# Remove intermediate files
+rm /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged.bam
+rm /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort.bam
+rm /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort.bam.bai
+rm /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG.bam
+rm /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort.bam
+rm /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort.bam.bai
+rm /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step5_MergeBams_mitoG/${name}_PEMEmerged_sort_RG_resort_Mkdup.bam
