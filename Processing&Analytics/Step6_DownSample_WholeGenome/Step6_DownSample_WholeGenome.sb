@@ -1,0 +1,99 @@
+#################################################
+# NOTES: This script is run as an array job, with the support file of "values.txt", which includes a list of sample names and relative downsampling percentages for 2X (SetA) and 5X (SetB) datasets. 
+#################################################
+
+
+#!/bin/bash -l
+#SBATCH --job-name=downsample
+#SBATCH --output=array_job_out_%A_%a.log
+#SBATCH --error=array_job_err_%A_%a.log
+#SBATCH --account=project_2006079
+#SBATCH --partition=small
+#SBATCH --time=72:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem-per-cpu=8G
+#SBATCH --array=1-152
+
+# Load necessary modules
+module load biokit
+module load gatk
+module load biojava/21
+module load picard/2.27.5
+module load samtools/1.21
+
+# Define input file
+input_file="/scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step6_MapDamage_WGcit/values.txt"
+base_path="/scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step6_MapDamage_WGcit"
+
+# Read sample details for the current job array index
+sample_name=$(awk -F'\t' -v task_id=$SLURM_ARRAY_TASK_ID 'NR==task_id {print $1}' "$input_file")
+cov_2x=$(awk -F'\t' -v task_id=$SLURM_ARRAY_TASK_ID 'NR==task_id {print $2}' "$input_file")
+cov_5x=$(awk -F'\t' -v task_id=$SLURM_ARRAY_TASK_ID 'NR==task_id {print $3}' "$input_file")
+
+# Debugging output
+echo "Processing Sample: $sample_name"
+echo "2x Coverage: $cov_2x"
+echo "5x Coverage: $cov_5x"
+
+# Check if coverage values are valid
+if [[ -z "$cov_2x" || -z "$cov_5x" || -z "$sample_name" ]]; then
+    echo "Error: Coverage values or sample name are not properly set for index $SLURM_ARRAY_TASK_ID."
+    exit 1
+fi
+
+# Define input BAM file
+input_bam="${base_path}/${sample_name}/${sample_name}_PEMEmerged_sort_RG_resort_Mkdup_sort_rescaled_finalsort.bam"
+
+# Ensure input BAM file exists
+if [[ ! -f "$input_bam" ]]; then
+    echo "Error: Input BAM file does not exist: $input_bam"
+    exit 1
+fi
+
+# Perform Downsampling for 2x coverage
+output_bam_2x="${base_path}/${sample_name}/${sample_name}_PEMEmerged_sort_RG_resort_Mkdup_sort_rescaled_finalsort_2xCov.bam"
+picard DownsampleSam -I "$input_bam" -O "$output_bam_2x" -P "$cov_2x"
+
+# Check for errors in downsampling
+if [[ $? -ne 0 ]]; then
+    echo "Error: Downsampling failed for $sample_name with 2x coverage."
+    exit 1
+fi
+
+# Sort and index for 2x coverage
+samtools sort -o "${base_path}/${sample_name}/${sample_name}_PEMEmerged_sort_RG_resort_Mkdup_resort_rescaled_sort_2xCov_finalsort.bam" "$output_bam_2x"
+samtools index "${base_path}/${sample_name}/${sample_name}_PEMEmerged_sort_RG_resort_Mkdup_resort_rescaled_sort_2xCov_finalsort.bam"
+samtools flagstat "${base_path}/${sample_name}/${sample_name}_PEMEmerged_sort_RG_resort_Mkdup_resort_rescaled_sort_2xCov_finalsort.bam" > "${base_path}/${sample_name}/flagstat_2x_${sample_name}.txt"
+
+# Coverage statistics for 2x
+samtools depth "${base_path}/${sample_name}/${sample_name}_PEMEmerged_sort_RG_resort_Mkdup_resort_rescaled_sort_2xCov_finalsort.bam" \
+| awk '{sum+=$3; sumsq+=$3*$3} END { print "Average = ",sum/NR; print "Stdev = ",sqrt(sumsq/NR - (sum/NR)^2)}' > "coverage_2x_${sample_name}.txt"
+
+# Remove intermediate 2x BAM file
+rm "$output_bam_2x"
+
+# Perform Downsampling for 5x coverage
+output_bam_5x="${base_path}/${sample_name}/${sample_name}_PEMEmerged_sort_RG_resort_Mkdup_sort_rescaled_finalsort_5xCov.bam"
+picard DownsampleSam -I "$input_bam" -O "$output_bam_5x" -P "$cov_5x"
+
+# Check for errors in downsampling for 5x
+if [[ $? -ne 0 ]]; then
+    echo "Error: Downsampling failed for $sample_name with 5x coverage."
+    exit 1
+fi
+
+# Sort and index for 5x coverage
+samtools sort -o "${base_path}/${sample_name}/${sample_name}_PEMEmerged_sort_RG_resort_Mkdup_resort_rescaled_sort_5xCov_finalsort.bam" "$output_bam_5x"
+samtools index "${base_path}/${sample_name}/${sample_name}_PEMEmerged_sort_RG_resort_Mkdup_resort_rescaled_sort_5xCov_finalsort.bam"
+samtools flagstat "${base_path}/${sample_name}/${sample_name}_PEMEmerged_sort_RG_resort_Mkdup_resort_rescaled_sort_5xCov_finalsort.bam" > "${base_path}/${sample_name}/flagstat_5x_${sample_name}.txt"
+
+# Coverage statistics for 5x
+samtools depth "${base_path}/${sample_name}/${sample_name}_PEMEmerged_sort_RG_resort_Mkdup_resort_rescaled_sort_5xCov_finalsort.bam" \
+| awk '{sum+=$3; sumsq+=$3*$3} END { print "Average = ",sum/NR; print "Stdev = ",sqrt(sumsq/NR - (sum/NR)^2)}' > "coverage_5x_${sample_name}.txt"
+
+# Remove intermediate 5x BAM file
+rm "$output_bam_5x"
+
+# Change permissions for output files
+chmod 777 "${base_path}/${sample_name}"/*
