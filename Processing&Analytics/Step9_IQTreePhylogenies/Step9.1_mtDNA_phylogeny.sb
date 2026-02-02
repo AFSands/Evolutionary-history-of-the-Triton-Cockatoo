@@ -17,6 +17,6 @@
 
 module load iqtree
 
-iqtree2 -s Phylogeny.fasta -v -m TEST -bb 10000 -st DNA -nt AUTO
+iqtree2 -s haplotypenetwork.fasta -v -m TEST -bb 10000 -st DNA -nt AUTO
 
 chmod -R 777 *
