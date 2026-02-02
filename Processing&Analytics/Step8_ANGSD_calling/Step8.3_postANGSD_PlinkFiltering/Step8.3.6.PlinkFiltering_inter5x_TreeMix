@@ -1,0 +1,13 @@
+#################################################
+# NOTES: This script was run on an interactive node from the outputs from Step8.2.6. to produce the VCF inputs for the TreeMix analyses (Fig. 6c).
+#################################################
+
+
+#Plink filtering
+module load plink/1.90b7.7
+plink --tfile triton5xinterAdmixRegions --make-bed --allow-extra-chr --missing --recode --out triton5xinter_TreeMix #SNPs 4,254,022
+plink --bfile triton5xinter_TreeMix --allow-extra-chr --indep-pairwise 50 5 0.2 --out triton5xinter_TreeMix
+plink --bfile triton5xinter_TreeMix --allow-extra-chr --extract triton5xinter_TreeMix.prune.in --make-bed --distance triangle ibs 1-ibs allele-ct --out triton5xinter_TreeMix_LDprune #SNPs 
+
+#Creating inputs for TreeMix
+plink --bfile triton5xinter_TreeMix_LDprune --allow-extra-chr --recode vcf --out triton5xinter_TreeMix_LDprune #SNPs 542,442
