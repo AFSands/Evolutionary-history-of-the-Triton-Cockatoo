@@ -1,0 +1,14 @@
+#################################################
+# NOTES: This script was run on an interactive node from the outputs from Step8.2.8 to filter and produce the 5x intraspecific PCA of the associated study (Fig. 2g). 
+#################################################
+
+
+#Plink1.9 filtering
+module load plink/1.90b7.7
+plink --tfile triton5xintra_8 --make-bed --allow-extra-chr --missing --recode --out triton5xintra_8 #SNPs 32,354
+plink --bfile triton5xintra_8 --allow-extra-chr --indep-pairwise 50 5 0.2 --out triton5xintra_8
+plink --bfile triton5xintra_8 --allow-extra-chr --extract triton5xintra_8.prune.in --make-bed --distance triangle ibs 1-ibs allele-ct --out triton5xintra_8_ldprune_PCA #SNPs 
+
+#PCA creation
+module load plink
+plink2 --bfile triton5xintra_8_ldprune_PCA --pca 10 --allow-extra-chr --bad-freqs --out triton5xintra_8_ldprune_PCA #SNPs 6,534
