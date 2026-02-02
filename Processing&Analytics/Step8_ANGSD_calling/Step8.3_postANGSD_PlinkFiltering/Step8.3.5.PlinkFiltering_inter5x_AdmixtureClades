@@ -1,0 +1,12 @@
+#################################################
+# NOTES: This script was run on an interactive node from the outputs from Step8.2.5. To produce the VCF inputs for clade-weighted admixture assessment (Fig. 6b).
+#################################################
+
+#Plink filtering
+module load plink/1.90b7.7
+plink --tfile triton5xinterAdmixRegions --make-bed --allow-extra-chr --missing --recode --out triton5xinterAdmixClades #SNPs 3,593,735
+plink --bfile triton5xinterAdmixClades --allow-extra-chr --indep-pairwise 50 5 0.2 --out triton5xinterAdmixClades
+plink --bfile triton5xinterAdmixClades --allow-extra-chr --extract triton5xinterAdmixClades.prune.in --make-bed --distance triangle ibs 1-ibs allele-ct --out triton5xinterAdmixClades_LDprune #SNPs 
+
+#Admixture: Clade-weighted inputs
+plink --bfile triton5xinterAdmixClades_LDprune --allow-extra-chr --recode vcf --out triton5xinterAdmixClades_LDprune #SNPs 163,486
