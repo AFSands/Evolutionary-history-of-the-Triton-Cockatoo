@@ -1,0 +1,22 @@
+#################################################
+# NOTES: This script was run with concatenated consensus gene alignments of all protein-coding genes derived from Step8.1 fasta files as processed and created on Genious to create the mtDNA phylogeny of the associated study (Fig.4a). 
+#################################################
+
+
+#!/bin/bash
+#SBATCH --job-name=iqtree
+#SBATCH --account=project_2006079
+#SBATCH --time=72:00:00
+#SBATCH --partition=small
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=12
+#SBATCH --mem-per-cpu=12G
+#SBATCH --mail-type=END
+#SBATCH --output output.%J
+#SBATCH --error=test.err.%J
+
+module load iqtree
+
+iqtree2 -s Phylogeny.fasta -v -m TEST -bb 10000 -st DNA -nt AUTO
+
+chmod -R 777 *
