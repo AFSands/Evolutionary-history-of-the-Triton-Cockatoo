@@ -3,14 +3,12 @@
 #################################################
 
 
-module load plink/1.90
-
 #Plink Filtering
+module load plink/1.90
 plink --tfile triton_18 --make-bed --allow-extra-chr --missing --recode --out triton_18 #SNPs 23,374
 plink --bfile triton_18 --allow-extra-chr --indep-pairwise 50 5 0.2 --out triton_18
 plink --bfile triton_18 --allow-extra-chr --extract triton_18.prune.in --make-bed --distance triangle ibs 1-ibs allele-ct --out triton_18_ldprune_PCA #SNPs 15,420
-plink --bfile triton_18_ldprune_PCA --allow-extra-chr --recode vcf --out triton_18_ldprune_inter2xPCA
 
 #PCA analyses
 module load plink
-plink2 --bfile triton_18_ldprune_inter2xPCA --pca 10 --allow-extra-chr --bad-freqs --out triton_18_ldprune_inter2xPCA
+plink2 --bfile triton_18_ldprune_PCA --pca 10 --allow-extra-chr --bad-freqs --out triton_18_ldprune_PCA #SNPs 15,420
