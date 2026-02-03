@@ -1,0 +1,17 @@
+#################################################
+# NOTES: This script was run in an interactive node. The inputs are taken from Step8.3.3/8.2.3 (as also used for the SNP phylogeny of the associated study (Fig. 4B). It is there to correct a header issue in Plink outputs important to run the ADMIXTURE program.
+#################################################
+
+
+module load plink/1.90b7.7
+
+#Change permissions
+chmod -R 777 *
+
+plink --tfile triton5xinterphylo_12 --allow-extra-chr --make-bed --recode --out triton5xinterphylo_12 #SNPs = 10,113,614
+plink --bfile triton5xinterphylo_12 --allow-extra-chr --indep-pairwise 50 5 0.2 --out triton5xinterphylo_12
+plink --bfile triton5xinterphylo_12 --allow-extra-chr --extract triton5xinterphylo_12.prune.in --make-bed --distance triangle ibs 1-ibs allele-ct --out triton5xinterphylo_12_ld_Admix #SNPs = 2,709,902  
+sed -i 's/SUPER_//g' triton5xinterphylo_12_ld_Admix.bim
+
+#Change permissions
+chmod -R 777 *
