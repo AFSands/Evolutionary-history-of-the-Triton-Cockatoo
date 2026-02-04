@@ -14,7 +14,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem-per-cpu=20G
 #SBATCH --gres=nvme:400
-#SBATCH --array=1-27
+#SBATCH --array=1-30
 
 module load angsd
 
