@@ -1,0 +1,285 @@
+#!/bin/bash -l
+#SBATCH --job-name=2Dsfs
+#SBATCH --error=%j.err
+#SBATCH --output=%j.out
+#SBATCH --account=project_2006079
+#SBATCH --partition=hugemem
+#SBATCH --time=72:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=200G
+#SBATCH --gres=nvme:1496
+
+module load angsd
+
+#Change permissions
+chmod -R 777 *
+
+
+#f_NT
+winsfs f_NT_autosome.saf.idx GAL_autosome.saf.idx -t 4 -vv >2dsfs_f_NT_GAL_autosome.saf
+
+#f_TWIs
+winsfs f_TWIs_autosome.saf.idx GAL_autosome.saf.idx -t 4 -vv >2dsfs_f_TWIs_GAL_autosome.saf
+
+#f_WA
+winsfs f_WA_autosome.saf.idx GAL_autosome.saf.idx -t 4 -vv >2dsfs_f_WA_GAL_autosome.saf
+
+#g_ACT
+
+#g_CYP
+winsfs g_CYP_autosome.saf.idx g_CYP_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_g_CYP_autosome.saf
+winsfs g_CYP_autosome.saf.idx g_NSW_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_g_NSW_autosome.saf
+winsfs g_CYP_autosome.saf.idx g_SA_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_g_SA_autosome.saf
+winsfs g_CYP_autosome.saf.idx g_SCQ_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_g_SCQ_autosome.saf
+winsfs g_CYP_autosome.saf.idx g_TAS_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_g_TAS_autosome.saf
+winsfs g_CYP_autosome.saf.idx g_TF_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_g_TF_autosome.saf
+winsfs g_CYP_autosome.saf.idx g_VIC_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_g_VIC_autosome.saf
+winsfs g_CYP_autosome.saf.idx m_MOLUC_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_m_MOLUC_autosome.saf
+winsfs g_CYP_autosome.saf.idx o_OPHTH_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_o_OPHTH_autosome.saf
+winsfs g_CYP_autosome.saf.idx SUL2_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_SUL2_autosome.saf
+winsfs g_CYP_autosome.saf.idx SUL_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_SUL_autosome.saf
+winsfs g_CYP_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_s_WLS_autosome.saf
+winsfs g_CYP_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_s_WSESIs_autosome.saf
+winsfs g_CYP_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_s_WSUL_autosome.saf
+winsfs g_CYP_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_t_NNG_autosome.saf
+winsfs g_CYP_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_TRI_autosome.saf
+winsfs g_CYP_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_t_SCNG_autosome.saf
+winsfs g_CYP_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_t_SEIs_autosome.saf
+winsfs g_CYP_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_g_CYP_t_SENG_autosome.saf
+
+#g_NSW
+winsfs g_NSW_autosome.saf.idx g_NSW_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_g_NSW_autosome.saf
+winsfs g_NSW_autosome.saf.idx g_SA_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_g_SA_autosome.saf
+winsfs g_NSW_autosome.saf.idx g_SCQ_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_g_SCQ_autosome.saf
+winsfs g_NSW_autosome.saf.idx g_TAS_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_g_TAS_autosome.saf
+winsfs g_NSW_autosome.saf.idx g_TF_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_g_TF_autosome.saf
+winsfs g_NSW_autosome.saf.idx g_VIC_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_g_VIC_autosome.saf
+winsfs g_NSW_autosome.saf.idx m_MOLUC_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_m_MOLUC_autosome.saf
+winsfs g_NSW_autosome.saf.idx o_OPHTH_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_o_OPHTH_autosome.saf
+winsfs g_NSW_autosome.saf.idx SUL2_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_SUL2_autosome.saf
+winsfs g_NSW_autosome.saf.idx SUL_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_SUL_autosome.saf
+winsfs g_NSW_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_s_WLS_autosome.saf
+winsfs g_NSW_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_s_WSESIs_autosome.saf
+winsfs g_NSW_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_s_WSUL_autosome.saf
+winsfs g_NSW_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_t_NNG_autosome.saf
+winsfs g_NSW_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_TRI_autosome.saf
+winsfs g_NSW_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_t_SCNG_autosome.saf
+winsfs g_NSW_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_t_SEIs_autosome.saf
+winsfs g_NSW_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_g_NSW_t_SENG_autosome.saf
+
+#g_SA
+winsfs g_SA_autosome.saf.idx g_SA_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_g_SA_autosome.saf
+winsfs g_SA_autosome.saf.idx g_SCQ_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_g_SCQ_autosome.saf
+winsfs g_SA_autosome.saf.idx g_TAS_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_g_TAS_autosome.saf
+winsfs g_SA_autosome.saf.idx g_TF_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_g_TF_autosome.saf
+winsfs g_SA_autosome.saf.idx g_VIC_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_g_VIC_autosome.saf
+winsfs g_SA_autosome.saf.idx m_MOLUC_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_m_MOLUC_autosome.saf
+winsfs g_SA_autosome.saf.idx o_OPHTH_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_o_OPHTH_autosome.saf
+winsfs g_SA_autosome.saf.idx SUL2_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_SUL2_autosome.saf
+winsfs g_SA_autosome.saf.idx SUL_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_SUL_autosome.saf
+winsfs g_SA_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_s_WLS_autosome.saf
+winsfs g_SA_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_s_WSESIs_autosome.saf
+winsfs g_SA_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_s_WSUL_autosome.saf
+winsfs g_SA_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_t_NNG_autosome.saf
+winsfs g_SA_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_TRI_autosome.saf
+winsfs g_SA_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_t_SCNG_autosome.saf
+winsfs g_SA_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_t_SEIs_autosome.saf
+winsfs g_SA_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_g_SA_t_SENG_autosome.saf
+
+#g_SCQ
+winsfs g_SCQ_autosome.saf.idx g_SCQ_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_g_SCQ_autosome.saf
+winsfs g_SCQ_autosome.saf.idx g_TAS_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_g_TAS_autosome.saf
+winsfs g_SCQ_autosome.saf.idx g_TF_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_g_TF_autosome.saf
+winsfs g_SCQ_autosome.saf.idx g_VIC_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_g_VIC_autosome.saf
+winsfs g_SCQ_autosome.saf.idx m_MOLUC_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_m_MOLUC_autosome.saf
+winsfs g_SCQ_autosome.saf.idx o_OPHTH_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_o_OPHTH_autosome.saf
+winsfs g_SCQ_autosome.saf.idx SUL2_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_SUL2_autosome.saf
+winsfs g_SCQ_autosome.saf.idx SUL_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_SUL_autosome.saf
+winsfs g_SCQ_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_s_WLS_autosome.saf
+winsfs g_SCQ_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_s_WSESIs_autosome.saf
+winsfs g_SCQ_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_s_WSUL_autosome.saf
+winsfs g_SCQ_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_t_NNG_autosome.saf
+winsfs g_SCQ_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_TRI_autosome.saf
+winsfs g_SCQ_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_t_SCNG_autosome.saf
+winsfs g_SCQ_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_t_SEIs_autosome.saf
+winsfs g_SCQ_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_g_SCQ_t_SENG_autosome.saf
+
+#g_TAS
+winsfs g_TAS_autosome.saf.idx g_TAS_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_g_TAS_autosome.saf
+winsfs g_TAS_autosome.saf.idx g_TF_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_g_TF_autosome.saf
+winsfs g_TAS_autosome.saf.idx g_VIC_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_g_VIC_autosome.saf
+winsfs g_TAS_autosome.saf.idx m_MOLUC_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_m_MOLUC_autosome.saf
+winsfs g_TAS_autosome.saf.idx o_OPHTH_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_o_OPHTH_autosome.saf
+winsfs g_TAS_autosome.saf.idx SUL2_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_SUL2_autosome.saf
+winsfs g_TAS_autosome.saf.idx SUL_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_SUL_autosome.saf
+winsfs g_TAS_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_s_WLS_autosome.saf
+winsfs g_TAS_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_s_WSESIs_autosome.saf
+winsfs g_TAS_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_s_WSUL_autosome.saf
+winsfs g_TAS_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_t_NNG_autosome.saf
+winsfs g_TAS_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_TRI_autosome.saf
+winsfs g_TAS_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_t_SCNG_autosome.saf
+winsfs g_TAS_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_t_SEIs_autosome.saf
+winsfs g_TAS_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_g_TAS_t_SENG_autosome.saf
+
+#g_TF
+winsfs g_TF_autosome.saf.idx g_TF_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_g_TF_autosome.saf
+winsfs g_TF_autosome.saf.idx g_VIC_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_g_VIC_autosome.saf
+winsfs g_TF_autosome.saf.idx m_MOLUC_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_m_MOLUC_autosome.saf
+winsfs g_TF_autosome.saf.idx o_OPHTH_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_o_OPHTH_autosome.saf
+winsfs g_TF_autosome.saf.idx SUL2_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_SUL2_autosome.saf
+winsfs g_TF_autosome.saf.idx SUL_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_SUL_autosome.saf
+winsfs g_TF_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_s_WLS_autosome.saf
+winsfs g_TF_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_s_WSESIs_autosome.saf
+winsfs g_TF_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_s_WSUL_autosome.saf
+winsfs g_TF_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_t_NNG_autosome.saf
+winsfs g_TF_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_TRI_autosome.saf
+winsfs g_TF_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_t_SCNG_autosome.saf
+winsfs g_TF_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_t_SEIs_autosome.saf
+winsfs g_TF_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_g_TF_t_SENG_autosome.saf
+
+#g_VIC
+winsfs g_VIC_autosome.saf.idx g_VIC_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_g_VIC_autosome.saf
+winsfs g_VIC_autosome.saf.idx m_MOLUC_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_m_MOLUC_autosome.saf
+winsfs g_VIC_autosome.saf.idx o_OPHTH_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_o_OPHTH_autosome.saf
+winsfs g_VIC_autosome.saf.idx SUL2_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_SUL2_autosome.saf
+winsfs g_VIC_autosome.saf.idx SUL_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_SUL_autosome.saf
+winsfs g_VIC_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_s_WLS_autosome.saf
+winsfs g_VIC_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_s_WSESIs_autosome.saf
+winsfs g_VIC_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_s_WSUL_autosome.saf
+winsfs g_VIC_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_t_NNG_autosome.saf
+winsfs g_VIC_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_TRI_autosome.saf
+winsfs g_VIC_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_t_SCNG_autosome.saf
+winsfs g_VIC_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_t_SEIs_autosome.saf
+winsfs g_VIC_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_g_VIC_t_SENG_autosome.saf
+
+#m_MOLUC
+winsfs m_MOLUC_autosome.saf.idx m_MOLUC_autosome.saf.idx -t 4 -vv >2dsfs_m_MOLUC_m_MOLUC_autosome.saf
+winsfs m_MOLUC_autosome.saf.idx o_OPHTH_autosome.saf.idx -t 4 -vv >2dsfs_m_MOLUC_o_OPHTH_autosome.saf
+winsfs m_MOLUC_autosome.saf.idx SUL2_autosome.saf.idx -t 4 -vv >2dsfs_m_MOLUC_SUL2_autosome.saf
+winsfs m_MOLUC_autosome.saf.idx SUL_autosome.saf.idx -t 4 -vv >2dsfs_m_MOLUC_SUL_autosome.saf
+winsfs m_MOLUC_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_m_MOLUC_s_WLS_autosome.saf
+winsfs m_MOLUC_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_m_MOLUC_s_WSESIs_autosome.saf
+winsfs m_MOLUC_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_m_MOLUC_s_WSUL_autosome.saf
+winsfs m_MOLUC_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_m_MOLUC_t_NNG_autosome.saf
+winsfs m_MOLUC_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_m_MOLUC_TRI_autosome.saf
+winsfs m_MOLUC_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_m_MOLUC_t_SCNG_autosome.saf
+winsfs m_MOLUC_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_m_MOLUC_t_SEIs_autosome.saf
+winsfs m_MOLUC_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_m_MOLUC_t_SENG_autosome.saf
+
+#o_OPHTH
+winsfs o_OPHTH_autosome.saf.idx o_OPHTH_autosome.saf.idx -t 4 -vv >2dsfs_o_OPHTH_o_OPHTH_autosome.saf
+winsfs o_OPHTH_autosome.saf.idx SUL2_autosome.saf.idx -t 4 -vv >2dsfs_o_OPHTH_SUL2_autosome.saf
+winsfs o_OPHTH_autosome.saf.idx SUL_autosome.saf.idx -t 4 -vv >2dsfs_o_OPHTH_SUL_autosome.saf
+winsfs o_OPHTH_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_o_OPHTH_s_WLS_autosome.saf
+winsfs o_OPHTH_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_o_OPHTH_s_WSESIs_autosome.saf
+winsfs o_OPHTH_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_o_OPHTH_s_WSUL_autosome.saf
+winsfs o_OPHTH_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_o_OPHTH_t_NNG_autosome.saf
+winsfs o_OPHTH_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_o_OPHTH_TRI_autosome.saf
+winsfs o_OPHTH_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_o_OPHTH_t_SCNG_autosome.saf
+winsfs o_OPHTH_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_o_OPHTH_t_SEIs_autosome.saf
+winsfs o_OPHTH_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_o_OPHTH_t_SENG_autosome.saf
+
+#SUL2
+winsfs SUL2_autosome.saf.idx SUL2_autosome.saf.idx -t 4 -vv >2dsfs_SUL2_SUL2_autosome.saf
+winsfs SUL2_autosome.saf.idx SUL_autosome.saf.idx -t 4 -vv >2dsfs_SUL2_SUL_autosome.saf
+winsfs SUL2_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_SUL2_s_WLS_autosome.saf
+winsfs SUL2_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_SUL2_s_WSESIs_autosome.saf
+winsfs SUL2_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_SUL2_s_WSUL_autosome.saf
+winsfs SUL2_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_SUL2_t_NNG_autosome.saf
+winsfs SUL2_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_SUL2_TRI_autosome.saf
+winsfs SUL2_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_SUL2_t_SCNG_autosome.saf
+winsfs SUL2_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_SUL2_t_SEIs_autosome.saf
+winsfs SUL2_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_SUL2_t_SENG_autosome.saf
+
+#SUL
+winsfs SUL_autosome.saf.idx SUL_autosome.saf.idx -t 4 -vv >2dsfs_SUL_SUL_autosome.saf
+winsfs SUL_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_SUL_s_WLS_autosome.saf
+winsfs SUL_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_SUL_s_WSESIs_autosome.saf
+winsfs SUL_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_SUL_s_WSUL_autosome.saf
+winsfs SUL_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_SUL_t_NNG_autosome.saf
+winsfs SUL_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_SUL_TRI_autosome.saf
+winsfs SUL_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_SUL_t_SCNG_autosome.saf
+winsfs SUL_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_SUL_t_SEIs_autosome.saf
+winsfs SUL_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_SUL_t_SENG_autosome.saf
+
+#s_WLS
+winsfs s_WLS_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_s_WLS_s_WLS_autosome.saf
+winsfs s_WLS_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_s_WLS_s_WSESIs_autosome.saf
+winsfs s_WLS_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_s_WLS_s_WSUL_autosome.saf
+winsfs s_WLS_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_s_WLS_t_NNG_autosome.saf
+winsfs s_WLS_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_s_WLS_TRI_autosome.saf
+winsfs s_WLS_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_s_WLS_t_SCNG_autosome.saf
+winsfs s_WLS_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_s_WLS_t_SEIs_autosome.saf
+winsfs s_WLS_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_s_WLS_t_SENG_autosome.saf
+
+#s_WSESIs
+winsfs s_WSESIs_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_s_WSESIs_s_WSESIs_autosome.saf
+winsfs s_WSESIs_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_s_WSESIs_s_WSUL_autosome.saf
+winsfs s_WSESIs_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_s_WSESIs_t_NNG_autosome.saf
+winsfs s_WSESIs_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_s_WSESIs_TRI_autosome.saf
+winsfs s_WSESIs_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_s_WSESIs_t_SCNG_autosome.saf
+winsfs s_WSESIs_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_s_WSESIs_t_SEIs_autosome.saf
+winsfs s_WSESIs_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_s_WSESIs_t_SENG_autosome.saf
+
+#s_WSUL
+winsfs s_WSUL_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_s_WSUL_s_WSUL_autosome.saf
+winsfs s_WSUL_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_s_WSUL_t_NNG_autosome.saf
+winsfs s_WSUL_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_s_WSUL_TRI_autosome.saf
+winsfs s_WSUL_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_s_WSUL_t_SCNG_autosome.saf
+winsfs s_WSUL_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_s_WSUL_t_SEIs_autosome.saf
+winsfs s_WSUL_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_s_WSUL_t_SENG_autosome.saf
+
+#t_NNG
+winsfs t_NNG_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_t_NNG_t_NNG_autosome.saf
+winsfs t_NNG_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_t_NNG_TRI_autosome.saf
+winsfs t_NNG_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_t_NNG_t_SCNG_autosome.saf
+winsfs t_NNG_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_t_NNG_t_SEIs_autosome.saf
+winsfs t_NNG_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_t_NNG_t_SENG_autosome.saf
+
+#TRI
+winsfs TRI_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_TRI_TRI_autosome.saf
+winsfs TRI_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_TRI_t_SCNG_autosome.saf
+winsfs TRI_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_TRI_t_SEIs_autosome.saf
+winsfs TRI_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_TRI_t_SENG_autosome.saf
+
+#t_SCNG
+winsfs t_SCNG_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_t_SCNG_t_SCNG_autosome.saf
+winsfs t_SCNG_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_t_SCNG_t_SEIs_autosome.saf
+winsfs t_SCNG_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_t_SCNG_t_SENG_autosome.saf
+
+#t_SEIs
+winsfs t_SEIs_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_t_SEIs_t_SEIs_autosome.saf
+winsfs t_SEIs_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_t_SEIs_t_SENG_autosome.saf
+
+#t_SENG
+winsfs t_SENG_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_t_SENG_t_SENG_autosome.saf
+
+
+#GAL
+
+winsfs GAL_autosome.saf.idx g_ACT_autosome.saf.idx -t 4 -vv >2dsfs_GAL_g_ACT_autosome.saf
+winsfs GAL_autosome.saf.idx g_CYP_autosome.saf.idx -t 4 -vv >2dsfs_GAL_g_CYP_autosome.saf
+winsfs GAL_autosome.saf.idx g_NSW_autosome.saf.idx -t 4 -vv >2dsfs_GAL_g_NSW_autosome.saf
+winsfs GAL_autosome.saf.idx g_SA_autosome.saf.idx -t 4 -vv >2dsfs_GAL_g_SA_autosome.saf
+winsfs GAL_autosome.saf.idx g_SCQ_autosome.saf.idx -t 4 -vv >2dsfs_GAL_g_SCQ_autosome.saf
+winsfs GAL_autosome.saf.idx g_TAS_autosome.saf.idx -t 4 -vv >2dsfs_GAL_g_TAS_autosome.saf
+winsfs GAL_autosome.saf.idx g_TF_autosome.saf.idx -t 4 -vv >2dsfs_GAL_g_TF_autosome.saf
+winsfs GAL_autosome.saf.idx g_VIC_autosome.saf.idx -t 4 -vv >2dsfs_GAL_g_VIC_autosome.saf
+winsfs GAL_autosome.saf.idx m_MOLUC_autosome.saf.idx -t 4 -vv >2dsfs_GAL_m_MOLUC_autosome.saf
+winsfs GAL_autosome.saf.idx o_OPHTH_autosome.saf.idx -t 4 -vv >2dsfs_GAL_o_OPHTH_autosome.saf
+winsfs GAL_autosome.saf.idx SUL2_autosome.saf.idx -t 4 -vv >2dsfs_GAL_SUL2_autosome.saf
+winsfs GAL_autosome.saf.idx SUL_autosome.saf.idx -t 4 -vv >2dsfs_GAL_SUL_autosome.saf
+winsfs GAL_autosome.saf.idx s_WLS_autosome.saf.idx -t 4 -vv >2dsfs_GAL_s_WLS_autosome.saf
+winsfs GAL_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 4 -vv >2dsfs_GAL_s_WSESIs_autosome.saf
+winsfs GAL_autosome.saf.idx s_WSUL_autosome.saf.idx -t 4 -vv >2dsfs_GAL_s_WSUL_autosome.saf
+winsfs GAL_autosome.saf.idx t_NNG_autosome.saf.idx -t 4 -vv >2dsfs_GAL_t_NNG_autosome.saf
+winsfs GAL_autosome.saf.idx TRI_autosome.saf.idx -t 4 -vv >2dsfs_GAL_TRI_autosome.saf
+winsfs GAL_autosome.saf.idx t_SCNG_autosome.saf.idx -t 4 -vv >2dsfs_GAL_t_SCNG_autosome.saf
+winsfs GAL_autosome.saf.idx t_SEIs_autosome.saf.idx -t 4 -vv >2dsfs_GAL_t_SEIs_autosome.saf
+winsfs GAL_autosome.saf.idx t_SENG_autosome.saf.idx -t 4 -vv >2dsfs_GAL_t_SENG_autosome.saf
+winsfs FIT_autosome.saf.idx GAL_autosome.saf.idx -t 4 -vv >2dsfs_FIT_GAL_autosome.saf
+winsfs GAL_autosome.saf.idx GAL_autosome.saf.idx -t 4 -vv >2dsfs_GAL_GAL_autosome.saf
+
+#Change permissions
+chmod -R 777 *

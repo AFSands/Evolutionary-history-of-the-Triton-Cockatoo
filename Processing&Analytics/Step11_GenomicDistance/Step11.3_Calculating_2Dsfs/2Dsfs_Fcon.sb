@@ -1,0 +1,21 @@
+#!/bin/bash -l
+#SBATCH --job-name=2Dsfs
+#SBATCH --error=%j.err
+#SBATCH --output=%j.out
+#SBATCH --account=project_2006079
+#SBATCH --partition=hugemem
+#SBATCH --time=72:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=1496G
+
+module load angsd
+
+#Change permissions
+chmod -R 777 *
+
+#GAL
+winsfs GAL_autosome.saf.idx -t 2 > 2dsfs_GAL_GAL_autosome.saf
+
+#Change permissions
+chmod -R 777 *

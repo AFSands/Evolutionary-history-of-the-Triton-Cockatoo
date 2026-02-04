@@ -1,0 +1,33 @@
+#!/bin/bash -l
+#SBATCH --job-name=2Dsfs
+#SBATCH --error=%j.err
+#SBATCH --output=%j.out
+#SBATCH --account=project_2006079
+#SBATCH --partition=hugemem
+#SBATCH --time=72:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=1000G
+#SBATCH --gres=nvme:1490
+
+module load angsd
+
+#Change permissions
+chmod -R 777 *
+
+#GAL
+winsfs GAL_autosome.saf.idx s_WLS_autosome.saf.idx -t 2 -vv >2dsfs_GAL_s_WLS_autosome.saf
+winsfs GAL_autosome.saf.idx s_WSESIs_autosome.saf.idx -t 2 -vv >2dsfs_GAL_s_WSESIs_autosome.saf
+winsfs GAL_autosome.saf.idx s_WSUL_autosome.saf.idx -t 2 -vv >2dsfs_GAL_s_WSUL_autosome.saf
+winsfs GAL_autosome.saf.idx t_NNG_autosome.saf.idx -t 2 -vv >2dsfs_GAL_t_NNG_autosome.saf
+winsfs GAL_autosome.saf.idx TRI_autosome.saf.idx -t 2 -vv >2dsfs_GAL_TRI_autosome.saf
+winsfs GAL_autosome.saf.idx t_SCNG_autosome.saf.idx -t 2 -vv >2dsfs_GAL_t_SCNG_autosome.saf
+winsfs GAL_autosome.saf.idx t_SEIs_autosome.saf.idx -t 2 -vv >2dsfs_GAL_t_SEIs_autosome.saf
+winsfs GAL_autosome.saf.idx t_SENG_autosome.saf.idx -t 2 -vv >2dsfs_GAL_t_SENG_autosome.saf
+winsfs FIT_autosome.saf.idx GAL_autosome.saf.idx -t 2 -vv >2dsfs_FIT_GAL_autosome.saf
+winsfs GAL_autosome.saf.idx GAL_autosome.saf.idx -t 2 -vv >2dsfs_GAL_GAL_autosome.saf
+
+
+
+#Change permissions
+chmod -R 777 *
