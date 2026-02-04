@@ -1,0 +1,54 @@
+#################################################
+# NOTES: This script was used to calculate several genetic indices for each population - also see https://github.com/Nopaoli/Demographic-275 Modelling/tree/master/Diversity_fromSFS for more information. This script should be run from the directory containing the outputs from Step11.1. This script requires a supporting R script in the same directory (see Step2a_pi_tajima_n.R), herein called "pi_tajima_n.R".
+#################################################
+
+
+#!/bin/bash
+#SBATCH --account=project_2006079
+#SBATCH --job-name=Rscript
+#SBATCH --error=%j.err
+#SBATCH --output=%j.out
+#SBATCH --partition=small
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=2
+#SBATCH --time=72:00:00
+#SBATCH --mem-per-cpu=8G
+
+#Change permissions
+chmod -R 777 *
+
+module load r-env/422
+
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R a_ALBA_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R CIT_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R c_WSUM_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R FIT_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R f_NT_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R f_TWIs_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R f_WA_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R GAL_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R GAL1_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R GAL2_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R g_ACT_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R g_CYP_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R g_NSW_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R g_SA_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R g_SCQ_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R g_TAS_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R g_TF_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R g_VIC_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R m_MOLUC_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R o_OPHTH_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R SUL_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R SUL2_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R s_WLS_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R s_WSESIs_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R s_WSUL_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R t_NNG_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R TRI_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R t_SCNG_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R t_SEIs_autosome.sfs
+srun singularity_wrapper exec Rscript /scratch/project_2006079/aDNA_AFS/project_2006079/aDNA/step12_genomedist/pi_tajima_n.R t_SENG_autosome.sfs
+
+#Change permissions
+chmod -R 777 *
